@@ -10,3 +10,4 @@ appRoot.innerHTML = '<h1>Vendor Management System</h1>';
 
 console.warn('Application initialized');
 // hook test
+// test 2
