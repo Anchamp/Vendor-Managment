@@ -1,5 +1,5 @@
 import { state } from './app.state';
-import type {VendorData} from './types';
+import type { VendorData } from './types';
 
 const STORAGE_KEY = 'vendor_management_data';
 

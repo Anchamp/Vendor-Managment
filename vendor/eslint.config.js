@@ -8,8 +8,24 @@ export default [
   {
     ignores: ['node_modules', 'dist', 'build'],
   },
+  js.configs.recommended,
   {
-    files: ['src/**/*.ts'],
+    files: ['**/*.ts'],
+    languageOptions: {
+      parser: tsParser,
+      parserOptions: {
+        ecmaVersion: 2021,
+        sourceType: 'module',
+      },
+      globals: {
+        console: 'readonly',
+        document: 'readonly',
+        window: 'readonly',
+        localStorage: 'readonly',
+        setTimeout: 'readonly',
+        clearTimeout: 'readonly',
+      },
+    },
     plugins: {
       '@typescript-eslint': tsPlugin,
       prettier: prettier,
@@ -21,7 +37,10 @@ export default [
       quotes: ['error', 'single', { avoidEscape: true }],
       indent: ['error', 2, { SwitchCase: 1 }],
       'no-unused-vars': 'off',
-      '@typescript-eslint/no-unused-vars': ['warn', { argsIgnorePattern: '^_' }],
+      '@typescript-eslint/no-unused-vars': [
+        'warn',
+        { argsIgnorePattern: '^_', varsIgnorePattern: '^_' },
+      ],
       'no-console': ['warn', { allow: ['warn', 'error'] }],
       eqeqeq: ['error', 'always'],
       curly: ['error', 'all'],
@@ -30,7 +49,9 @@ export default [
         'warn',
         { max: 100, skipBlankLines: true, skipComments: true },
       ],
-      'prettier/prettier': 'error',
+      complexity: ['error', 10],
+      '@typescript-eslint/no-explicit-any': 'error',
+      'prettier/prettier': ['error', { endOfLine: 'auto' }],
     },
   },
 ];
