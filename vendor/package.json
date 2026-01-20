@@ -9,7 +9,18 @@
     "preview": "vite preview",
     "lint": "eslint src --ext .ts",
     "lint:fix": "eslint src --ext .ts --fix",
-    "format": "prettier --write \"src/**/*.ts\""
+    "format": "prettier --write \"src/**/*.{ts,json,css}\"",
+    "format:check": "prettier --check \"src/**/*.{ts,json,css}\"",
+    "prepare": "husky install"
+  },
+  "lint-staged": {
+    "*.ts": [
+      "eslint --fix",
+      "prettier --write"
+    ],
+    "*.{json,md,css}": [
+      "prettier --write"
+    ]
   },
   "devDependencies": {
     "@commitlint/cli": "^20.3.1",
@@ -19,17 +30,10 @@
     "eslint": "^9.39.2",
     "eslint-config-prettier": "^10.1.8",
     "eslint-plugin-prettier": "^5.5.5",
-    "husky": "^9.1.7",
+    "husky": "^8.0.0",
     "lint-staged": "^16.2.7",
     "prettier": "^3.8.0",
     "typescript": "~5.9.3",
     "vite": "^7.2.4"
-  },
-  "*.ts": [
-    "eslint --fix",
-    "prettier --write"
-  ],
-  "*.{json,css,scss,md}": [
-    "prettier --write"
-  ]
+  }
 }

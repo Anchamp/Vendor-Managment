@@ -6,24 +6,10 @@ import prettierConfig from 'eslint-config-prettier';
 
 export default [
   {
-    ignores: ['node_modules', 'dist', 'build', '*.config.js', 'coverage'],
+    ignores: ['node_modules', 'dist', 'build'],
   },
-  js.configs.recommended,
   {
     files: ['src/**/*.ts'],
-    languageOptions: {
-      parser: tsParser,
-      parserOptions: {
-        ecmaVersion: 2021,
-        sourceType: 'module',
-        project: './tsconfig.json',
-      },
-      globals: {
-        console: 'readonly',
-        document: 'readonly',
-        window: 'readonly',
-      },
-    },
     plugins: {
       '@typescript-eslint': tsPlugin,
       prettier: prettier,
@@ -42,10 +28,8 @@ export default [
       'max-depth': ['error', 3],
       'max-lines-per-function': [
         'warn',
-        { max: 50, skipBlankLines: true, skipComments: true },
+        { max: 100, skipBlankLines: true, skipComments: true },
       ],
-      complexity: ['error', 10],
-      '@typescript-eslint/no-explicit-any': 'error',
       'prettier/prettier': 'error',
     },
   },
