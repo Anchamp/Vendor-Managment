@@ -28,6 +28,7 @@ export interface VendorData {
   qualityAssurance: boolean;
   termsConditions: boolean;
 }
+
 export interface FormState {
   editingId: string | null;
   isEditMode: boolean;
