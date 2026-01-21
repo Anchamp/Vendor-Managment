@@ -17,14 +17,6 @@ export default [
         ecmaVersion: 2021,
         sourceType: 'module',
       },
-      globals: {
-        console: 'readonly',
-        document: 'readonly',
-        window: 'readonly',
-        localStorage: 'readonly',
-        setTimeout: 'readonly',
-        clearTimeout: 'readonly',
-      },
     },
     plugins: {
       '@typescript-eslint': tsPlugin,
@@ -36,12 +28,13 @@ export default [
       semi: ['error', 'always'],
       quotes: ['error', 'single', { avoidEscape: true }],
       indent: ['error', 2, { SwitchCase: 1 }],
+      'no-undef': 'off', // TypeScript handles this
       'no-unused-vars': 'off',
       '@typescript-eslint/no-unused-vars': [
         'warn',
         { argsIgnorePattern: '^_', varsIgnorePattern: '^_' },
       ],
-      'no-console': ['warn', { allow: ['warn', 'error'] }],
+      'no-console': ['warn', { allow: ['warn', 'error', 'log'] }],
       eqeqeq: ['error', 'always'],
       curly: ['error', 'all'],
       'max-depth': ['error', 3],
