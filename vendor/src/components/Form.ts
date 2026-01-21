@@ -5,11 +5,11 @@ import { createElement, createButton } from '../utils/dom';
 import { generateId } from '../logic/helpers/business-helpers';
 import type { VendorData } from '../types';
 import { createBusinessSection } from '../form-sections/business-section';
-//import { createOwnerSection } from './form-sections/owner-section';
-//import { createBankingSection } from './form-sections/banking-section';
-//import { createTaxSection } from './form-sections/tax-section';
-//import { createStoreSection } from './form-sections/store-section';
-//import { createPoliciesSection } from './form-sections/policies-section';
+import { createOwnerSection } from '../form-sections/owner-section';
+import { createBankingSection } from '../form-sections/banking-section';
+import { createTaxSection } from '../form-sections/tax-section';
+import { createStoreSection } from '../form-sections/store-section';
+import { createPoliciesSection } from '../form-sections/policies-section';
 
 export function VendorForm(): HTMLDivElement {
   const container = createElement('div', 'form_container');
@@ -24,11 +24,11 @@ export function VendorForm(): HTMLDivElement {
   form.setAttribute('novalidate', 'true');
 
   form.appendChild(createBusinessSection());
-  //form.appendChild(createOwnerSection());
-  //form.appendChild(createBankingSection());
-  //form.appendChild(createTaxSection());
-  //form.appendChild(createStoreSection());
-  //form.appendChild(createPoliciesSection());
+  form.appendChild(createOwnerSection());
+  form.appendChild(createBankingSection());
+  form.appendChild(createTaxSection());
+  form.appendChild(createStoreSection());
+  form.appendChild(createPoliciesSection());
 
   const actions = createElement('div', 'form_actions');
   const submitBtn = createButton('SUBMIT', 'submit');
@@ -47,6 +47,7 @@ export function VendorForm(): HTMLDivElement {
 
   return container;
 }
+
 function handleSubmit(e: Event): void {
   e.preventDefault();
   const form = e.target as HTMLFormElement;
@@ -73,6 +74,7 @@ function handleSubmit(e: Event): void {
   saveToStorage();
   renderApp();
 }
+
 function handleReset(): void {
   renderApp();
 }
