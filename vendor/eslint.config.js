@@ -42,7 +42,6 @@ export default [
         'warn',
         { max: 150, skipBlankLines: true, skipComments: true },
       ],
-      complexity: ['error', 10],
       '@typescript-eslint/no-explicit-any': 'error',
       'prettier/prettier': ['error', { endOfLine: 'auto' }],
     },

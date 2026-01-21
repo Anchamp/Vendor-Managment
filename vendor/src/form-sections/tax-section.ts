@@ -24,6 +24,10 @@ export function createTaxSection(): HTMLElement {
     radio.name = 'taxStatus';
     radio.value = s.value;
     radio.required = true;
+
+    // Add change listener inline
+    radio.addEventListener('change', handleTaxStatusChange);
+
     const span = createElement('span');
     span.textContent = s.label;
     radioLabel.appendChild(radio);
@@ -53,4 +57,23 @@ export function createTaxSection(): HTMLElement {
   section.appendChild(gstGroup);
 
   return section;
+}
+
+function handleTaxStatusChange(e: Event): void {
+  const target = e.target as HTMLInputElement;
+  const gstGroup = document.getElementById('gstGroup');
+  if (!gstGroup) {
+    return;
+  }
+
+  const isRegistered = target.value === 'registered';
+  gstGroup.style.display = isRegistered ? 'block' : 'none';
+
+  const input = gstGroup.querySelector('input');
+  if (input) {
+    input.required = isRegistered;
+    if (!isRegistered) {
+      input.value = '';
+    }
+  }
 }

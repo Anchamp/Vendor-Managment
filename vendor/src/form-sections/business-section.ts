@@ -1,14 +1,14 @@
 import { createElement } from '../utils/dom';
-
 export function createBusinessSection(): HTMLElement {
   const section = createElement('section', 'form_section');
   const h3 = createElement('h3');
   h3.textContent = 'Business Details';
   section.appendChild(h3);
-  //Type(radio)
+
+  // Business Type (radio)
   const btGroup = createElement('div', 'form_group');
   const btLabel = createElement('label');
-  btLabel.textContent = 'Type of business';
+  btLabel.textContent = 'Type of Business';
   btLabel.classList.add('required');
   const radioGroup = createElement('div', 'radio_group');
 
@@ -21,33 +21,42 @@ export function createBusinessSection(): HTMLElement {
   ];
 
   types.forEach((t) => {
-    const radiolabel = createElement('label', 'radio_label');
+    const radioLabel = createElement('label', 'radio_label');
     const radio = createElement('input');
     radio.type = 'radio';
     radio.name = 'businessType';
     radio.value = t.value;
     radio.required = true;
+
+    // Add change listener inline
+    radio.addEventListener('change', handleBusinessTypeChange);
+
     const span = createElement('span');
     span.textContent = t.label;
-    radiolabel.appendChild(radio);
-    radiolabel.appendChild(span);
-    radioGroup.appendChild(radiolabel);
+    radioLabel.appendChild(radio);
+    radioLabel.appendChild(span);
+    radioGroup.appendChild(radioLabel);
   });
+
   const btError = createElement('span', 'error_message');
   btGroup.appendChild(btLabel);
   btGroup.appendChild(radioGroup);
   btGroup.appendChild(btError);
   section.appendChild(btGroup);
-  //B.Name
-  section.appendChild(createTextInput('businessname', 'Business Name', true));
-  //B.Registration number
+
+  // Business Name
+  section.appendChild(createTextInput('businessName', 'Business Name', true));
+
+  // Business Registration (conditional)
   const regGroup = createTextInput('businessRegistration', 'Business Registration Number');
   regGroup.id = 'registrationGroup';
   regGroup.style.display = 'none';
   section.appendChild(regGroup);
-  //PAN Number
+
+  // PAN Number
   section.appendChild(createTextInput('panNumber', 'PAN Number', true, 'ABCDE1234F'));
-  //operation date
+
+  // Operating Since
   const opGroup = createElement('div', 'form_group');
   const opLabel = createElement('label');
   opLabel.textContent = 'Operating Since';
@@ -61,12 +70,14 @@ export function createBusinessSection(): HTMLElement {
   opGroup.appendChild(opInput);
   opGroup.appendChild(opError);
   section.appendChild(opGroup);
-  //categories
+
+  // Categories (checkboxes)
   const catGroup = createElement('div', 'form_group');
   const catLabel = createElement('label');
   catLabel.textContent = 'Business Categories';
   catLabel.classList.add('required');
   const checkGroup = createElement('div', 'checkbox_group');
+
   const categories = [
     'electronics',
     'fashion',
@@ -90,19 +101,22 @@ export function createBusinessSection(): HTMLElement {
     checkLabel.appendChild(span);
     checkGroup.appendChild(checkLabel);
   });
+
   const catError = createElement('span', 'error_message');
   catGroup.appendChild(catLabel);
   catGroup.appendChild(checkGroup);
   catGroup.appendChild(catError);
   section.appendChild(catGroup);
-  //sales
+
+  // Monthly Sales
   const salesGroup = createElement('div', 'form_group');
   const salesLabel = createElement('label');
   salesLabel.textContent = 'Monthly Sales Estimate';
-  salesLabel.classList.add('requiresd');
+  salesLabel.classList.add('required');
   const salesSelect = createElement('select');
   salesSelect.name = 'monthlySales';
   salesSelect.required = true;
+
   const salesOptions = [
     { value: '', text: 'Select sales range' },
     { value: '0-50k', text: '₹0 - ₹50,000' },
@@ -120,13 +134,36 @@ export function createBusinessSection(): HTMLElement {
     salesSelect.appendChild(option);
   });
 
-  const slaesError = createElement('span', 'error_message');
+  const salesError = createElement('span', 'error_message');
   salesGroup.appendChild(salesLabel);
   salesGroup.appendChild(salesSelect);
-  salesGroup.appendChild(slaesError);
+  salesGroup.appendChild(salesError);
   section.appendChild(salesGroup);
+
   return section;
 }
+
+function handleBusinessTypeChange(e: Event): void {
+  const target = e.target as HTMLInputElement;
+  const regGroup = document.getElementById('registrationGroup');
+  if (!regGroup) {
+    return;
+  }
+
+  const needsReg = ['partnership', 'private-limited', 'public-limited', 'llp'].includes(
+    target.value,
+  );
+  regGroup.style.display = needsReg ? 'block' : 'none';
+
+  const input = regGroup.querySelector('input');
+  if (input) {
+    input.required = needsReg;
+    if (!needsReg) {
+      input.value = '';
+    }
+  }
+}
+
 function createTextInput(
   name: string,
   label: string,
