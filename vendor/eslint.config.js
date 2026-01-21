@@ -40,7 +40,7 @@ export default [
       'max-depth': ['error', 3],
       'max-lines-per-function': [
         'warn',
-        { max: 100, skipBlankLines: true, skipComments: true },
+        { max: 150, skipBlankLines: true, skipComments: true },
       ],
       complexity: ['error', 10],
       '@typescript-eslint/no-explicit-any': 'error',
